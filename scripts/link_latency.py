@@ -1,4 +1,3 @@
-#!/usr/bin/python
 '''
 Created on Feb 27, 2016
 
@@ -38,11 +37,11 @@ routers = [
                                                                                                  ], 
             'nap_time': 26 },
            { 'name': 'miami', 'ip': '10.10.10.55', 'router_id': '10.210.10.112', 'interfaces': [
-                                                                                                { 'name': 'ge-0/1/0', 'address': '10.210.22.1', 'to': 'houston' }, 
-                                                                                                { 'name': 'ge-0/1/1', 'address': '10.210.24.1', 'to': 'tampa' }, 
-                                                                                                { 'name': 'ge-0/1/2', 'address': '10.210.12.1', 'to': 'new york' }, 
-                                                                                                { 'name': 'ge-0/1/3', 'address': '10.210.11.2', 'to': 'dallas' }, 
-                                                                                                { 'name': 'ge-1/3/0', 'address': '10.210.14.1', 'to': 'chicago' }
+                                                                                                { 'name': 'ge-1/0/0', 'address': '10.210.22.1', 'to': 'houston' }, 
+                                                                                                { 'name': 'ge-1/0/1', 'address': '10.210.24.1', 'to': 'tampa' }, 
+                                                                                                { 'name': 'ge-1/0/2', 'address': '10.210.12.1', 'to': 'new york' }, 
+                                                                                                { 'name': 'ge-1/0/3', 'address': '10.210.11.2', 'to': 'dallas' }, 
+                                                                                                { 'name': 'ge-1/0/4', 'address': '10.210.14.1', 'to': 'chicago' }
                                                                                                 ], 
             'nap_time': 27 },
            { 'name': 'new york', 'ip': '10.10.11.25', 'router_id': '10.210.10.118', 'interfaces': [
@@ -52,19 +51,19 @@ routers = [
                                                                                                    ], 
             'nap_time': 22 },
            { 'name': 'los angeles', 'ip': '10.10.10.51', 'router_id': '10.210.10.113', 'interfaces': [
-                                                                                                      { 'name': 'ge-0/1/0', 'address': '10.210.18.2', 'to': 'san francisco' },
-                                                                                                      { 'name': 'ge-0/1/1', 'address': '10.210.19.2', 'to': 'dallas' },
-                                                                                                      { 'name': 'ge-0/1/2', 'address': '10.210.20.1', 'to': 'houston' }
+                                                                                                      { 'name': 'ge-1/0/0', 'address': '10.210.18.2', 'to': 'san francisco' },
+                                                                                                      { 'name': 'ge-1/0/1', 'address': '10.210.19.2', 'to': 'dallas' },
+                                                                                                      { 'name': 'ge-1/0/2', 'address': '10.210.20.1', 'to': 'houston' }
                                                                                                       ], 
             'nap_time': 28 },
 
-#           { 'name': 'houston', 'ip': '10.10.10.54', 'router_id': '10.210.10.114', 'interfaces': [
-#                                                                                                 { 'name': 'ge-0/1/0', 'address': '10.210.20.2', 'to': 'los angeles' },
-#                                                                                                 { 'name': 'ge-0/1/1', 'address': '10.210.21.2', 'to': 'dallas' },
-#                                                                                                  { 'name': 'ge-0/1/2', 'address': '10.210.22.2', 'to': 'miami' },
-#                                                                                                 { 'name': 'ge-0/1/3', 'address': '10.210.25.1', 'to': 'tampa' }
-#                                                                                                ], 
-#          'nap_time': 27 },
+           { 'name': 'houston', 'ip': '10.10.10.54', 'router_id': '10.210.10.114', 'interfaces': [
+                                                                                                 { 'name': 'ge-1/0/0', 'address': '10.210.20.2', 'to': 'los angeles' },
+                                                                                                 { 'name': 'ge-1/0/1', 'address': '10.210.21.2', 'to': 'dallas' },
+                                                                                                  { 'name': 'ge-1/0/2', 'address': '10.210.22.2', 'to': 'miami' },
+                                                                                                 { 'name': 'ge-1/0/3', 'address': '10.210.25.1', 'to': 'tampa' }
+                                                                                                ], 
+          'nap_time': 27 },
            { 'name': 'tampa', 'ip': '10.10.10.56', 'router_id': '10.210.10.115', 'interfaces': [
                                                                                                 { 'name': 'ge-1/0/0', 'address': '10.210.25.2', 'to': 'houston' }, 
                                                                                                 { 'name': 'ge-1/0/1', 'address': '10.210.24.2', 'to': 'miami' }, 
