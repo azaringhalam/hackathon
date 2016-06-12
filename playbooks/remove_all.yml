@@ -1,0 +1,12 @@
+---
+- hosts: localhost
+  connection: local
+  vars_files: 
+    - ./group_vars/hackathon.yml
+    - ./group_vars/all.yml
+  tasks:
+    - name: Remove vlans
+      command: /root/hackathon/library/remove_vlan.py -i '{{ hackathon.vcenter_hostname }}' -u '{{ hackathon.vcenter_username }}' -p '{{ hackathon.vcenter_password }}' -e '{{ hackathon.esxi_hostname }}' -s '{{ item.0['vswitch'] }}' -v '{{ item.1['vlan_id'] }}' -n '{{ item.1['vlan_name'] }}'
+      with_subelements:
+        - '{{ hackathon.host_list }}'
+        - vlan_list

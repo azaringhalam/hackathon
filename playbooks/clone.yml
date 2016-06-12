@@ -1,0 +1,35 @@
+---
+- hosts: localhost
+  connection: local
+  vars_files: 
+    - ./group_vars/hackathon.yml
+    - ./group_vars/all.yml
+  roles:
+    - role: clone
+      vcenter_hostname: '{{ hackathon.vcenter_hostname }}'
+      vcenter_username: '{{ hackathon.vcenter_username }}'
+      vcenter_password: '{{ hackathon.vcenter_password }}'
+      guest_list: '{{ hackathon.host_list }}'
+      template_src: '{{ global.template_src }}'
+      esxi_datacenter: '{{ hackathon.esxi_datacenter }}'
+      esxi_host: '{{ hackathon.esxi_hostname }}'
+
+    - role: vlan
+      vcenter_hostname: '{{ hackathon.vcenter_hostname }}'
+      vcenter_username: '{{ hackathon.vcenter_username }}'
+      vcenter_password: '{{ hackathon.vcenter_password }}'
+      guest_list: '{{ hackathon.host_list }}'
+      esxi_datacenter: '{{ hackathon.esxi_datacenter }}'
+      esxi_host: '{{ hackathon.esxi_hostname }}'
+      template_ip: '{{ global.template_ip }}'
+      esxi_vswitch: '{{ hackathon.esxi_vswitch }}'
+
+- hosts: localhost
+  connection: local
+  vars_files: 
+    - ./group_vars/hackathon.yml
+  tasks:
+    - name: run nested ansible
+      command: ansible-playbook sysfiles.yml -e hostname={{ item.hostname }} -e ip_address={{ item.ip_address }} -e username={{ item.username }} -e password={{ item.password }} -e ip1={{ item.vlan_list[0].ip_address }} -e ip2={{ item.vlan_list[1].ip_address }} -e ip3={{ item.vlan_list[2].ip_address }} -e ip4={{ item.vlan_list[3].ip_address }} 
+      with_items: '{{ hackathon.host_list }}'
+

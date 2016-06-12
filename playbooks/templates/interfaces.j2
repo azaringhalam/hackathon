@@ -1,0 +1,37 @@
+# This file describes the network interfaces available on your system
+# and how to activate them. For more information, see interfaces(5).
+
+# The loopback network interface
+auto lo
+iface lo inet loopback
+
+# The primary network interface
+auto eth0
+iface eth0 inet static
+	address {{ ip_address }}
+        netmask 255.255.240.0
+        network 10.10.0.0
+        broadcast 10.10.15.255
+        gateway 10.10.10.1
+        dns-nameservers 8.8.8.8
+        dns-search juniper.net
+
+auto eth1
+iface eth1 inet static
+        address {{ ip1 }}
+        netmask 255.255.255.0
+
+auto eth2
+iface eth2 inet static
+        address {{ ip2 }}
+        netmask 255.255.255.0
+
+auto eth3
+iface eth3 inet static
+        address {{ ip3 }}
+        netmask 255.255.255.0
+
+auto eth4
+iface eth4 inet static
+        address {{ ip4 }}
+        netmask 255.255.255.0

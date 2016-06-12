@@ -1,0 +1,15 @@
+---
+- name: clone VM instance from gold VM
+  vsphere_guest:
+      validate_certs: False
+      vcenter_hostname: '{{ vcenter_hostname }}'
+      username: '{{ vcenter_username }}'
+      password: '{{ vcenter_password }}'
+      guest: '{{ item.hostname }}'
+      from_template: yes
+      template_src: '{{ template_src }}'
+      power_on_after_clone: 'no'
+      esxi:
+        datacenter: '{{ esxi_datacenter }}'
+        hostname: '{{ esxi_host }}'
+  with_items: '{{ guest_list }}'

@@ -1,0 +1,61 @@
+---
+- hosts: localhost
+  vars_files: 
+    - ./group_vars/hackathon.yml
+    - ./group_vars/all.yml
+  connection: local
+  tasks:
+    - name: power up cloned Vm
+      vsphere_guest:
+        validate_certs: False
+        vcenter_hostname: '{{ hackathon.vcenter_hostname }}'
+        username: '{{ hackathon.vcenter_username }}'
+        password: '{{ hackathon.vcenter_password }}'
+        guest: '{{ hostname }}'
+        state: powered_on
+        esxi:
+          datacenter: '{{ hackathon.esxi_datacenter }}'
+          hostname: '{{ hackathon.esxi_hostname }}'
+
+    - name: waiting for golden VM to power up
+      local_action: wait_for host='{{ global.template_ip }}' state=started delay=1 timeout=60
+      sudo: false
+
+- hosts: '{{ global.template_src }}'
+  vars_files: 
+    - ./group_vars/hackathon.yml
+    - ./group_vars/all.yml
+  tasks:
+    - name: Configure /etc/hostname
+      template: >
+        src=/root/hackathon/playbooks/templates/hostname.j2
+        dest=/etc/hostname
+    
+    - name: Configure /etc/hosts
+      template: >
+        src=/root/hackathon/playbooks/templates/hosts.j2
+        dest=/etc/hosts
+    
+    - name: Configure /etc/network/interfaces
+      template: >
+        src=/root/hackathon/playbooks/templates/interfaces.j2
+        dest=/etc/network/interfaces
+    - name: reboot
+      command: reboot
+    - name: waiting for cloned VM to power up
+      local_action: wait_for host='{{ ip_address }}' state=started delay=1 timeout=60
+      sudo: false
+
+- hosts: '{{ hostname }}'
+  tasks:
+    - name: create user 
+      shell: adduser --disabled-password --gecos "" '{{ username }}'
+    - name: set password
+      shell: echo "{{ username }}:{{ password }}" | chpasswd
+    - name: add to sudo group
+      shell: usermod -aG sudo "{{ username }}"
+    - name: enable remote desktop with xfce4
+      shell: echo xfce4-session > ~/.xsession
+      become: yes
+      become_user: '{{ username }}'
+

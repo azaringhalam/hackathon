@@ -1,0 +1,24 @@
+---
+- name: create vlan
+  command: /root/hackathon/library/create_vlan.py -i '{{ vcenter_hostname }}' -u '{{ vcenter_username }}' -p '{{ vcenter_password }}' -e '{{ esxi_host }}' -s '{{ item.0['vswitch'] }}' -v '{{ item.1['vlan_id'] }}' -n '{{ item.1['vlan_name'] }}'
+  with_subelements:
+    - '{{ guest_list }}'
+    - vlan_list
+
+- name: add cloned vm to vlan
+  vsphere_guest:
+    validate_certs: False
+    vcenter_hostname: '{{ vcenter_hostname }}'
+    username: '{{ vcenter_username }}'
+    password: '{{ vcenter_password }}'
+    guest: '{{ item.hostname }}'
+    state: reconfigured
+    vm_nic: '{{ item.nic_list }}'
+    esxi:
+      datacenter: '{{ esxi_datacenter }}'
+      hostname: '{{ esxi_host }}'
+  with_items: '{{ guest_list }}'
+
+#- name: waiting for golden VM to power up
+  #local_action: wait_for host='{{ template_ip }}' state=started delay=1 timeout=60
+  #sudo: false
