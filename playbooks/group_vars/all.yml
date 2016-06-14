@@ -1,5 +1,0 @@
-global:
-  template_ip: 10.10.2.199
-  template_password: op3nl@b
-  template_username: root
-  template_src: hackathon-gold-2.199
